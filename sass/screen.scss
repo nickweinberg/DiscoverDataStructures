@@ -5,6 +5,7 @@
 
 @import "compass/reset";
 
-.main-section {
-  height: 100%;
+.inner-wrap {
+  // set height to 100% of viewport height
+  height: 100vh;
 }

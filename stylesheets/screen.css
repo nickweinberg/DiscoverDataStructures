@@ -68,6 +68,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* line 8, ../sass/screen.scss */
-.main-section {
-  height: 100%;
+.inner-wrap {
+  height: 100vh;
 }
