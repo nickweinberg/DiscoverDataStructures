@@ -67,7 +67,39 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 8, ../sass/screen.scss */
-.inner-wrap {
-  height: 100vh;
+/* line 10, ../sass/screen.scss */
+body {
+  background-color: black;
+  font-family: "Arial";
+  color: #dddddd;
+}
+
+/* line 16, ../sass/screen.scss */
+.master-header {
+  width: 100%;
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  background-color: #008cba;
+}
+
+/* line 24, ../sass/screen.scss */
+.struct-nav {
+  margin-left: 0.2em;
+}
+
+/* line 28, ../sass/screen.scss */
+.controls {
+  top: 10%;
+}
+/* line 31, ../sass/screen.scss */
+.controls button {
+  display: block;
+  width: 100%;
+}
+
+/* line 37, ../sass/screen.scss */
+.visualization {
+  padding: 1em;
+  width: 70%;
 }

@@ -1,63 +1,52 @@
 <!doctype html>
 <html>
   <head>
+    <!-- D3.js won't work without UTF-8 encoding -->
+    <meta charset="utf-8">
     <!-- CSS: Framework -->
     <link href="lib/foundation/css/foundation.css" rel="stylesheet">
     <!-- CSS: App's code -->
-    <link href="stylesheets/colors.css" rel="stylesheet">
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
   <body>
-    <div class="off-canvas-wrap">
-      <div class="inner-wrap">
-        <nav class="tab-bar">
-          <section class="left-small">
-            <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-          </section>
+    <header class="master-header">
+      Data Structures
+    </header>
+    <dl class="struct-nav sub-nav">
+      <dt>Choose a structure:</dt>
+      <dd class="active"><a href="#">Stack</a></dd>
+      <dd><a href="#">Queue</a></dd>
+      <dd><a href="#">Linked List</a></dd>
+      <dd><a href="#">Tree</a></dd>
+      <dd><a href="#">Prefix Tree</a></dd>
+      <dd><a href="#">Hash Table</a></dd>
+    </dl>
 
-          <section class="middle tab-bar-section">
-            <h1 class="title">Data Structures</h1>
-          </section>
-        </nav>
-
-        <aside class="left-off-canvas-menu">
-          <ul class="off-canvas-list">
-            <li><label>Pick a structure</label></li>
-            <li><a href="#">Stack</a></li>
-            <li><a href="#">Queue</a></li>
-            <li><a href="#">Tree</a></li>
-            <li><a href="#">Prefix Tree</a></li>
-            <li><a href="#">Hash Table</a></li>
-          </ul>
-        </aside>
-
-        <section class="main-section">
-          <!-- content goes here -->
-          <article class="content-container">
-            <section class="controls">
-              <button class="add-btn">Add</button>
-              <button class="remove-btn">Remove</button>
-            </section>
-            <section class="visualization">
-            </section>
-          </article>
+    <section class="main-section">
+      <!-- content goes here -->
+      <article class="content-container row">
+        <section class="controls columns small-3">
+          <input type="text" placeholder="Value to add" />
+          <button class="add-btn">Add</button>
+          <button class="remove-btn">Remove</button>
         </section>
+        <section class="visualization columns small-9">
+          test
+        </section>
+      </article>
+    </section>
 
-      <a class="exit-off-canvas"></a>
-
-      </div>
-    </div>
 
     <!-- JS: Libraries -->
     <script src="lib/d3/d3.js"></script>
-    <script src="lib/foundation/js/vendor/jquery.js"></script>
-    <script src="lib/foundation/js/foundation.js"></script>
+    <!-- // <script src="lib/foundation/js/vendor/jquery.js"></script> -->
+    <!-- // <script src="lib/foundation/js/foundation.js"></script> -->
     <!-- JS: Foundation plugins -->
-    <script>
-      $(document).foundation();
-    </script>
+    <!-- // <script>
+    //   $(document).foundation();
+    // </script> -->
     <!-- // <script src="lib/foundation/js/foundation/foundation.offcanvas.js"></script> -->
     <!-- JS: App's code -->
-    <script src="scripts/main-viz.js"></script>
+    <script src="scripts/viz-stack.js"></script>
   </body>
 </html>

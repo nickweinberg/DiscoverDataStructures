@@ -4,8 +4,37 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "colors";
+@import "typography";
 
-.inner-wrap {
-  // set height to 100% of viewport height
-  height: 100vh;
+body {
+  background-color: $body-background-color;
+  font-family: $body-font-family;
+  color: $body-font-color;
+}
+
+.master-header {
+  width: 100%;
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  background-color: $banner-color;
+}
+
+.struct-nav {
+  margin-left: 0.2em;
+}
+
+.controls {
+  top: 10%;
+
+  button {
+    display: block;
+    width: 100%;
+  }
+}
+
+.visualization {
+  padding: 1em;
+  width: 70%
 }
