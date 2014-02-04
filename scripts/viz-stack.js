@@ -31,12 +31,16 @@
                        .attr("height", svgHeight);
 
   var updateViz = function(){
+    var vizConfig = {
+      'yPos': 50,
+      'r': 20
+    };
     var items = svgContainer.selectAll('circle').data(stack);
     var enter = items.enter();
     enter.append('circle')
          .attr('cx', xPos)
-         .attr('cy', 50)
-         .attr('r', 20)
+         .attr('cy', vizConfig.yPos)
+         .attr('r', vizConfig.r)
          .attr('stroke-width', 3)
          .attr('stroke', '#008cba');
     var exit = items.exit();
@@ -48,7 +52,7 @@
          .text(function(d){ return d; })
          .attr('text-anchor', 'middle')
          .attr('x', xPos)
-         .attr('y', 50 + 4)
+         .attr('y', vizConfig.yPos + (vizConfig.r / 4))
          .attr('fill', 'white');
     exit = items.exit();
     exit.remove();
