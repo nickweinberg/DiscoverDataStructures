@@ -1,20 +1,26 @@
 (function(){
-  var stack = [];
+
+  var stack = [],
+    xPos = 5;
 
   var push = function(){
-    var input = ''; // TODO; get string from input text field
+    xPos += 25;
+    var input = $('.stack-input').val();
     stack.push(input);
     updateViz();
     // TODO: animate pushed item landing on the page out of no where
     // before it gets added to the rest of the circles in the viz
   };
+  $('.add-btn').click(push);
 
   var pop = function(){
+    if(xPos > 5){
+      xPos -= 25;
+    }
     stack.pop();
     updateViz();
-    // TODO: animate popped item being set aside
   };
-
+  $('.remove-btn').click(pop);
 
   var svgWidth = 400;
   var svgHeight = 400;
@@ -25,12 +31,27 @@
                        .attr("height", svgHeight);
 
   var updateViz = function(){
-    var items = svgContainer.selectAll('circle')
-                            .data(stack, String);
+    var items = svgContainer.selectAll('circle').data(stack);
+    var enter = items.enter();
+    enter.append('circle')
+         .attr('cx', xPos)
+         .attr('cy', 50)
+         .attr('r', 20)
+         .attr('stroke-width', 3)
+         .attr('stroke', '#008cba');
+    var exit = items.exit();
+    exit.remove();  // TODO: animate removal?
 
-    items.enter().append('circle');
-
-    items.exit().remove();
+    items = svgContainer.selectAll('text').data(stack);
+    enter = items.enter();
+    enter.append('text')
+         .text(function(d){ return d; })
+         .attr('text-anchor', 'middle')
+         .attr('x', xPos)
+         .attr('y', 50 + 4)
+         .attr('fill', 'white');
+    exit = items.exit();
+    exit.remove();
   };
 
 }());
