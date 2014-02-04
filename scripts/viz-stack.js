@@ -22,40 +22,49 @@
   };
   $('.remove-btn').click(pop);
 
-  var svgWidth = 400;
   var svgHeight = 400;
 
   var svgContainer = d3.select('.visualization')
                        .append('svg')
-                       .attr("width", svgWidth)
+                       .attr("width", '100%')
                        .attr("height", svgHeight);
 
   var updateViz = function(){
     var vizConfig = {
-      'yPos': 50,
-      'r': 20
+      'r': 20,
+      'xStart': 200,
+      'yStart': 50,
+      'yEnd': 150,
+      'delay': 200,
+      'duration': 600
     };
-    var items = svgContainer.selectAll('circle').data(stack);
-    var enter = items.enter();
-    enter.append('circle')
-         .attr('cx', xPos)
-         .attr('cy', vizConfig.yPos)
+    var circles = svgContainer.selectAll('circle').data(stack);
+    var newCircles = circles.enter().append('circle')
+         .attr('cx', vizConfig.xStart)
+         .attr('cy', vizConfig.yStart)
          .attr('r', vizConfig.r)
          .attr('stroke-width', 3)
          .attr('stroke', '#008cba');
-    var exit = items.exit();
-    exit.remove();  // TODO: animate removal?
+    newCircles.transition()
+              .delay(vizConfig.delay)
+              .duration(vizConfig.duration)
+              .attr('cx', xPos)
+              .attr('cy', vizConfig.yEnd);
+    circles.exit().remove(); // TODO: animate removal?
 
-    items = svgContainer.selectAll('text').data(stack);
-    enter = items.enter();
-    enter.append('text')
+    var text = svgContainer.selectAll('text').data(stack);
+    var newText = text.enter().append('text')
          .text(function(d){ return d; })
          .attr('text-anchor', 'middle')
+         .attr('fill', 'white')
+         .attr('x', vizConfig.xStart)
+         .attr('y', vizConfig.yStart + (vizConfig.r / 4));
+    newText.transition()
+         .delay(vizConfig.delay)
+         .delay(vizConfig.duration)
          .attr('x', xPos)
-         .attr('y', vizConfig.yPos + (vizConfig.r / 4))
-         .attr('fill', 'white');
-    exit = items.exit();
-    exit.remove();
+         .attr('y', vizConfig.yEnd + (vizConfig.r / 4));
+    text.exit().remove();
   };
 
 }());
