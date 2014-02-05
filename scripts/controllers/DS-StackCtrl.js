@@ -4,13 +4,13 @@ angular.module('DiscoverDataStructsApp').controller('StackCtrl', function($scope
   var stack = [],
     xPos = 5;
 
-  var push = function(){
+  $scope.push = function(){
     xPos += 25;
-    stack.push($scope.input);
+    stack.push($scope.inputText);
     updateViz();
   };
 
-  var pop = function(){
+  $scope.pop = function(){
     if(xPos > 5){
       xPos -= 25;
     }

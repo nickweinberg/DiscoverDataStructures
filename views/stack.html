@@ -1,9 +1,9 @@
 <article class="content-container row">
 
   <section class="controls columns small-3 large-2">
-    <input class="stack-input" type="text" placeholder="Value to add" />
-    <button class="add-btn">Add</button>
-    <button class="remove-btn">Remove</button>
+    <input class="stack-input" type="text" ng-model="inputText" placeholder="Value to add" />
+    <button class="add-btn" ng-click="push()">Add</button>
+    <button class="remove-btn" ng-click="pop()">Remove</button>
   </section>
 
   <section class="visualization columns small-8 large-9"></section>
