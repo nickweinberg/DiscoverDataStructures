@@ -1,15 +1,14 @@
-(function(){
+angular.module('DiscoverDataStructsApp').controller('DS-StackCtrl', function($scope){
+  'use strict';
 
   var stack = [],
     xPos = 5;
 
   var push = function(){
     xPos += 25;
-    var input = $('.stack-input').val();
-    stack.push(input);
+    stack.push($scope.input);
     updateViz();
   };
-  $('.add-btn').click(push);
 
   var pop = function(){
     if(xPos > 5){
@@ -18,7 +17,6 @@
     stack.pop();
     updateViz();
   };
-  $('.remove-btn').click(pop);
 
   var svgHeight = 400;
 
@@ -73,4 +71,4 @@
       });
   };
 
-}());
+});
