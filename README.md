@@ -1,5 +1,5 @@
-data-structures-d3
-==================
+# Discover Data Structures
+[to be determined].herokuapp.com (maybe?)
 
 # What
 
@@ -12,9 +12,15 @@ I'm a visual learner, and I hope to help other visual learners with diagrams tha
 # How
 
 - D3.js
-- maybe Backbone or Angular just to explore more front-end MV*
-- Stylus or Compass
-- maybe a CSS framework like Foundation or Boostrap for responsive design
+  - data visualizations
+  - animations
+- Angular
+  - single-page web app
+- Compass
+  - CSS pre-processing
+- Foundation
+  - CSS framework
+  - grid-based responsive design
 
 # When
 
