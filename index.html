@@ -14,7 +14,7 @@
     </header>
     <dl class="struct-nav sub-nav">
       <dt>Choose a structure:</dt>
-      <dd class="active"><a href="#">Stack</a></dd>
+      <dd class="getActive('/stack')"><a href="#/stack">Stack</a></dd>
       <dd><a href="#">Queue</a></dd>
       <dd><a href="#">Linked List</a></dd>
       <dd><a href="#">Tree</a></dd>
@@ -24,22 +24,16 @@
 
     <section class="main-section" ng-view="">
       <!-- content goes here -->
-      <article class="content-container row">
-        <section class="controls columns small-3 large-2">
-          <input class="stack-input" type="text" placeholder="Value to add" />
-          <button class="add-btn">Add</button>
-          <button class="remove-btn">Remove</button>
-        </section>
-        <section class="visualization columns small-8 large-9"></section>
-      </article>
     </section>
 
 
     <!-- JS: Libraries -->
     <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
     <script src="lib/d3/d3.js"></script>
     <!-- JS: App's code -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/ds-stack.js"></script>
+    <script src="scripts/controllers/HomeCtrl.js"></script>
+    <script src="scripts/controllers/DS-StackCtrl.js"></script>
   </body>
 </html>
