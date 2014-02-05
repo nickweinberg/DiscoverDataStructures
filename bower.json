@@ -17,6 +17,7 @@
   "dependencies": {
     "d3": "~3.3.13",
     "foundation": "~5.0.3",
-    "angular": "~1.2.11"
+    "angular": "~1.2.11",
+    "angular-route": "~1.2.11"
   }
 }
