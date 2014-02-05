@@ -8,8 +8,6 @@
     var input = $('.stack-input').val();
     stack.push(input);
     updateViz();
-    // TODO: animate pushed item landing on the page out of no where
-    // before it gets added to the rest of the circles in the viz
   };
   $('.add-btn').click(push);
 
@@ -61,7 +59,7 @@
       .ease('bounce')
       .attr('transform', 'translate(' + xPos + ',' + vizConfig.yEnd + ')');
 
-    var deadItems = items.exit(); // TODO: animate removal?
+    var deadItems = items.exit();
 
     deadItems.transition()
       .delay(vizConfig.delay)
