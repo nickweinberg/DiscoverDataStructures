@@ -25,9 +25,9 @@
   var svgHeight = 400;
 
   var svgContainer = d3.select('.visualization')
-                       .append('svg')
-                       .attr("width", '100%')
-                       .attr("height", svgHeight);
+    .append('svg')
+    .attr("width", '100%')
+    .attr("height", svgHeight);
 
   var updateViz = function(){
     var vizConfig = {
@@ -58,9 +58,21 @@
     newItems.transition()
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
+      .ease('bounce')
       .attr('transform', 'translate(' + xPos + ',' + vizConfig.yEnd + ')');
 
-    items.exit().remove(); // TODO: animate removal?
+    var deadItems = items.exit(); // TODO: animate removal?
+
+    deadItems.transition()
+      .delay(vizConfig.delay)
+      .duration(vizConfig.duration)
+      .ease('bounce')
+      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')')
+      .each('end', function(){
+        deadItems.transition()
+          .delay(vizConfig.delay)
+          .remove();
+      });
   };
 
 }());
