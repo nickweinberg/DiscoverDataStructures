@@ -1,5 +1,7 @@
-angular.module('DiscoverDataStructsApp', []).config(function($routeProvider){
+angular.module('DiscoverDataStructsApp', ['ngRoute']).config(function($routeProvider){
   'use strict';
+
+  console.log('hi');
 
   // Routes
   // ==========================================================================
@@ -10,7 +12,7 @@ angular.module('DiscoverDataStructsApp', []).config(function($routeProvider){
     })
     .when('/stack', {
       templateUrl: 'views/stack.html',
-      controller: 'DS-StackCtrl'
+      controller: 'StackCtrl'
     })
     .otherwise({
       redirectTo: '/'
