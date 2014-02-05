@@ -38,33 +38,29 @@
       'delay': 200,
       'duration': 600
     };
-    var circles = svgContainer.selectAll('circle').data(stack);
-    var newCircles = circles.enter().append('circle')
-         .attr('cx', vizConfig.xStart)
-         .attr('cy', vizConfig.yStart)
-         .attr('r', vizConfig.r)
-         .attr('stroke-width', 3)
-         .attr('stroke', '#008cba');
-    newCircles.transition()
-              .delay(vizConfig.delay)
-              .duration(vizConfig.duration)
-              .attr('cx', xPos)
-              .attr('cy', vizConfig.yEnd);
-    circles.exit().remove(); // TODO: animate removal?
 
-    var text = svgContainer.selectAll('text').data(stack);
-    var newText = text.enter().append('text')
-         .text(function(d){ return d; })
-         .attr('text-anchor', 'middle')
-         .attr('fill', 'white')
-         .attr('x', vizConfig.xStart)
-         .attr('y', vizConfig.yStart + (vizConfig.r / 4));
-    newText.transition()
-         .delay(vizConfig.delay)
-         .delay(vizConfig.duration)
-         .attr('x', xPos)
-         .attr('y', vizConfig.yEnd + (vizConfig.r / 4));
-    text.exit().remove();
+    var items = svgContainer.selectAll('g').data(stack);
+
+    var newItems = items.enter().append('g')
+      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')');
+
+    var circles = newItems.append('circle')
+      .attr('r', vizConfig.r)
+      .attr('stroke-width', 3)
+      .attr('stroke', '#008cba');
+
+    var text = newItems.append('text')
+      .text(function(d){ return d; })
+      .attr('text-anchor', 'middle')
+      .attr('fill', 'white')
+      .attr('y', vizConfig.r / 4);
+
+    newItems.transition()
+      .delay(vizConfig.delay)
+      .duration(vizConfig.duration)
+      .attr('transform', 'translate(' + xPos + ',' + vizConfig.yEnd + ')');
+
+    items.exit().remove(); // TODO: animate removal?
   };
 
 }());
