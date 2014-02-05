@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "d3": "~3.3.13",
-    "jquery": "~2.1.0",
-    "foundation": "~5.0.3"
+    "foundation": "~5.0.3",
+    "angular": "~1.2.11"
   }
 }
