@@ -12,14 +12,14 @@
     <header class="master-header">
       Data Structures
     </header>
-    <dl class="struct-nav sub-nav">
+    <dl class="struct-nav sub-nav" ng-controller="SubNavCtrl">
       <dt>Choose a structure:</dt>
-      <dd class="getActive('/stack')"><a href="#/stack">Stack</a></dd>
-      <dd><a href="#">Queue</a></dd>
-      <dd><a href="#">Linked List</a></dd>
-      <dd><a href="#">Tree</a></dd>
-      <dd><a href="#">Prefix Tree</a></dd>
-      <dd><a href="#">Hash Table</a></dd>
+      <dd ng-class="getActive('/stack')"><a href="#/stack">Stack</a></dd>
+      <dd ng-class="getActive('/queue')"><a href="#">Queue</a></dd>
+      <dd ng-class="getActive('/linkedList')"><a href="#">Linked List</a></dd>
+      <dd ng-class="getActive('/tree')"><a href="#">Tree</a></dd>
+      <dd ng-class="getActive('/prefixTree')"><a href="#">Prefix Tree</a></dd>
+      <dd ng-class="getActive('/hashTable')"><a href="#">Hash Table</a></dd>
     </dl>
 
     <section class="main-section" ng-view="">
@@ -33,6 +33,7 @@
     <script src="lib/d3/d3.js"></script>
     <!-- JS: App's code -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/SubNavCtrl.js"></script>
     <script src="scripts/controllers/HomeCtrl.js"></script>
     <script src="scripts/controllers/DS-StackCtrl.js"></script>
   </body>
