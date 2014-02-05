@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <!-- D3.js won't work without UTF-8 encoding -->
     <meta charset="utf-8">
+    <title>Discover Data Structures!</title>
     <!-- CSS: Framework -->
     <link href="lib/foundation/css/foundation.css" rel="stylesheet">
     <!-- CSS: App's code -->
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
-  <body>
+  <body ng-app="DiscoverDataStructsApp">
     <header class="master-header">
       Data Structures
     </header>
@@ -22,7 +22,7 @@
       <dd><a href="#">Hash Table</a></dd>
     </dl>
 
-    <section class="main-section">
+    <section class="main-section" ng-view="">
       <!-- content goes here -->
       <article class="content-container row">
         <section class="controls columns small-3 large-2">
@@ -36,16 +36,10 @@
 
 
     <!-- JS: Libraries -->
+    <script src="lib/angular/angular.js"></script>
     <script src="lib/d3/d3.js"></script>
-    <script src="lib/jquery/jquery.js"></script>
-    <!-- // <script src="lib/foundation/js/vendor/jquery.js"></script> -->
-    <!-- // <script src="lib/foundation/js/foundation.js"></script> -->
-    <!-- JS: Foundation plugins -->
-    <!-- // <script>
-    //   $(document).foundation();
-    // </script> -->
-    <!-- // <script src="lib/foundation/js/foundation/foundation.offcanvas.js"></script> -->
     <!-- JS: App's code -->
-    <script src="scripts/viz-stack.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/ds-stack.js"></script>
   </body>
 </html>
