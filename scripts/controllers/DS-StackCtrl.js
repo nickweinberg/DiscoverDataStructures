@@ -1,4 +1,4 @@
-angular.module('DiscoverDataStructsApp').controller('DS-StackCtrl', function($scope){
+angular.module('DiscoverDataStructsApp').controller('StackCtrl', function($scope){
   'use strict';
 
   var stack = [],
