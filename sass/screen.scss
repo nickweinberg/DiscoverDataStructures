@@ -13,12 +13,21 @@ body {
   color: $body-font-color;
 }
 
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: $body-font-color;
+}
+
 .master-header {
   width: 100%;
   padding: 0.5em 1em;
   margin-bottom: 0.5em;
   font-size: 2em;
   background-color: $banner-color;
+  a {
+    color: white;
+  }
 }
 
 .struct-nav {
@@ -38,3 +47,7 @@ body {
   padding: 1em;
   width: 70%
 }
+
+// .home-wrapper {
+//   padding: 1em;
+// }
