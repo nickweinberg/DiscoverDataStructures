@@ -13,6 +13,10 @@ angular.module('DiscoverDataStructsApp', ['ngRoute'])
         templateUrl: 'views/stack.html',
         controller: 'StackCtrl'
       })
+      .when('/queue', {
+        templateUrl: 'views/queue.html',
+        controller: 'QueueCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
