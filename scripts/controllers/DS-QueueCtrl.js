@@ -35,29 +35,34 @@ angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope
       'duration': 600
     };
 
+    // DATA JOIN: bind stack data to the visualization
     var items = svgContainer.selectAll('g').data(queue);
 
+    // ENTER new SVG groups to the visualization
     var newItems = items.enter().append('g')
       .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')');
 
-    var newCircles = newItems.append('circle')
+    // ENTER new circles to the new SVG groups
+    newItems.append('circle')
       .attr('r', vizConfig.r)
       .attr('stroke-width', 3)
       .attr('stroke', '#008cba');
 
-    var newValText = newItems.append('text')
+    // ENTER new text (provided by user) to the new SVG groups
+    newItems.append('text')
       .text(function(d){ return d; })
       .attr('text-anchor', 'middle')
       .attr('fill', 'white')
       .attr('y', vizConfig.r / 4);
 
-    var newPointerText = newItems.append('text')
+    // ENTER new head/tail text to the new SVG groups
+    newItems.append('text')
       .attr('class', 'pointerText')
       .attr('text-anchor', 'middle')
       .attr('fill', 'white')
       .attr('y', vizConfig.r * 2);
 
-    // Update pointerText to correctly label the head and tail of the queue
+    // UPDATE pointerText to correctly label the head and tail of the queue
     var pointerText = items.select('.pointerText')
       .text(function(d, i){
         var pointerName = '';
@@ -70,12 +75,14 @@ angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope
         return pointerName;
       });
 
+    // Animate the new SVG groups
     newItems.transition()
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
       .ease('bounce')
       .attr('transform', 'translate(' + xPos + ',' + vizConfig.yEnd + ')');
 
+    // EXIT: Animate and remove old SVG groups
     var deadItems = items.exit();
     deadItems.transition()
       .delay(vizConfig.delay)

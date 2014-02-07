@@ -35,30 +35,35 @@ angular.module('DiscoverDataStructsApp').controller('StackCtrl', function($scope
       'duration': 600
     };
 
+    // DATA JOIN: bind stack data to the visualization
     var items = svgContainer.selectAll('g').data(stack);
 
+    // ENTER new SVG groups to the visualization
     var newItems = items.enter().append('g')
       .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')');
 
-    var circles = newItems.append('circle')
+    // ENTER new circles to the new SVG groups
+    newItems.append('circle')
       .attr('r', vizConfig.r)
       .attr('stroke-width', 3)
       .attr('stroke', '#008cba');
 
-    var text = newItems.append('text')
+    // ENTER new text (provided by user) to the new SVG groups
+    newItems.append('text')
       .text(function(d){ return d; })
       .attr('text-anchor', 'middle')
       .attr('fill', 'white')
       .attr('y', vizConfig.r / 4);
 
+    // Animate the new SVG groups
     newItems.transition()
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
       .ease('bounce')
       .attr('transform', 'translate(' + xPos + ',' + vizConfig.yEnd + ')');
 
+    // EXIT: Animate and remove old SVG groups
     var deadItems = items.exit();
-
     deadItems.transition()
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
