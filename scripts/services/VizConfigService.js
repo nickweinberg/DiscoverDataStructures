@@ -1,5 +1,5 @@
 app.service('VizConfigService', function () {
-  this.multiply = function (x, y) {
+  this.example = function (x, y) {
     return x * y;
   };
 });
