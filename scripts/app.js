@@ -17,6 +17,10 @@ angular.module('DiscoverDataStructsApp', ['ngRoute'])
         templateUrl: 'views/queue.html',
         controller: 'QueueCtrl'
       })
+      .when('/linkedList', {
+        templateUrl: 'views/linkedList.html',
+        controller: 'LinkedListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
