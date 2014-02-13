@@ -1,18 +1,18 @@
-angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope){
+app.controller('QueueCtrl', function($scope){
   'use strict';
 
   var queue = [],
     xPos = 15;
 
   $scope.enqueue = function(){
-    xPos += 25;
+    xPos += 35;
     queue.push($scope.inputText);
     updateViz();
   };
 
   $scope.dequeue = function(){
     if(xPos > 15){
-      xPos -= 25;
+      xPos -= 35;
     }
     queue.shift();
     updateViz();
@@ -27,7 +27,7 @@ angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope
 
   var updateViz = function(){
     var vizConfig = {
-      'r': 20,
+      'r': 25,
       'xStart': 200,
       'yStart': 50,
       'yEnd': 150,

@@ -1,18 +1,18 @@
-angular.module('DiscoverDataStructsApp').controller('StackCtrl', function($scope){
+app.controller('StackCtrl', function($scope){
   'use strict';
 
   var stack = [],
-    xPos = 5;
+    xPos = 15;
 
   $scope.push = function(){
-    xPos += 25;
+    xPos += 35;
     stack.push($scope.inputText);
     updateViz();
   };
 
   $scope.pop = function(){
-    if(xPos > 5){
-      xPos -= 25;
+    if(xPos > 15){
+      xPos -= 35;
     }
     stack.pop();
     updateViz();
@@ -27,7 +27,7 @@ angular.module('DiscoverDataStructsApp').controller('StackCtrl', function($scope
 
   var updateViz = function(){
     var vizConfig = {
-      'r': 20,
+      'r': 25,
       'xStart': 200,
       'yStart': 50,
       'yEnd': 150,
