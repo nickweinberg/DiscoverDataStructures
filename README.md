@@ -28,4 +28,4 @@ TBD
 
 # Where
 
-I will probably try to host the end result on GitHub Pages
+I will probably try to host the end result on GitHub Pages or Heroku
