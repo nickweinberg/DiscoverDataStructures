@@ -3,4 +3,6 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   'use strict';
 
 
+
+
 });
