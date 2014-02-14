@@ -1,18 +1,19 @@
-angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope){
+app.controller('QueueCtrl', function($scope, VizConfigService){
   'use strict';
 
-  var queue = [],
-    xPos = 15;
+  var vizConfig = VizConfigService.getConfig();
+  var xPos      = vizConfig.xPosStart;
+  var queue     = [];
 
   $scope.enqueue = function(){
-    xPos += 25;
+    xPos += vizConfig.xPosIncrement;
     queue.push($scope.inputText);
     updateViz();
   };
 
   $scope.dequeue = function(){
-    if(xPos > 15){
-      xPos -= 25;
+    if(xPos > vizConfig.xPosStart){
+      xPos -= vizConfig.xPosIncrement;
     }
     queue.shift();
     updateViz();
@@ -26,21 +27,12 @@ angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope
     .attr("height", svgHeight);
 
   var updateViz = function(){
-    var vizConfig = {
-      'r': 20,
-      'xStart': 200,
-      'yStart': 50,
-      'yEnd': 150,
-      'delay': 200,
-      'duration': 600
-    };
-
     // DATA JOIN: bind stack data to the visualization
     var items = svgContainer.selectAll('g').data(queue);
 
     // ENTER new SVG groups to the visualization
     var newItems = items.enter().append('g')
-      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')');
+      .attr('transform', 'translate(' + vizConfig.xSpawnStart + ',' + vizConfig.ySpawnStart + ')');
 
     // ENTER new circles to the new SVG groups
     newItems.append('circle')
@@ -88,7 +80,7 @@ angular.module('DiscoverDataStructsApp').controller('QueueCtrl', function($scope
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
       .ease('bounce')
-      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')')
+      .attr('transform', 'translate(' + vizConfig.xSpawnStart + ',' + vizConfig.ySpawnStart + ')')
       .each('end', function(){
         deadItems.transition()
           .delay(vizConfig.delay)

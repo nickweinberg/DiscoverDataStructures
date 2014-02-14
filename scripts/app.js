@@ -1,6 +1,6 @@
-angular.module('DiscoverDataStructsApp', ['ngRoute'])
-  .config(['$routeProvider', function($routeProvider){
-    'use strict';
+var app = angular.module('DiscoverDataStructsApp', ['ngRoute']);
+app.config(['$routeProvider', function($routeProvider){
+  'use strict';
 
     // Routes
     // ==========================================================================
