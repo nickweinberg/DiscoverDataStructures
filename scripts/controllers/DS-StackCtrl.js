@@ -1,18 +1,19 @@
-app.controller('StackCtrl', function($scope){
+app.controller('StackCtrl', function($scope, VizConfigService){
   'use strict';
 
-  var stack = [],
-    xPos = 15;
+  var vizConfig = VizConfigService.getConfig();
+  var xPos      = vizConfig.xPosStart;
+  var stack     = [];
 
   $scope.push = function(){
-    xPos += 35;
+    xPos += vizConfig.xPosIncrement;
     stack.push($scope.inputText);
     updateViz();
   };
 
   $scope.pop = function(){
-    if(xPos > 15){
-      xPos -= 35;
+    if(xPos > vizConfig.xPosStart){
+      xPos -= vizConfig.xPosIncrement;
     }
     stack.pop();
     updateViz();
@@ -26,21 +27,13 @@ app.controller('StackCtrl', function($scope){
     .attr("height", svgHeight);
 
   var updateViz = function(){
-    var vizConfig = {
-      'r': 25,
-      'xStart': 200,
-      'yStart': 50,
-      'yEnd': 150,
-      'delay': 200,
-      'duration': 600
-    };
-
     // DATA JOIN: bind stack data to the visualization
     var items = svgContainer.selectAll('g').data(stack);
 
     // ENTER new SVG groups to the visualization
     var newItems = items.enter().append('g')
-      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')');
+      .attr('transform', 'translate(' + vizConfig.xSpawnStart + ',' +
+        vizConfig.ySpawnStart + ')');
 
     // ENTER new circles to the new SVG groups
     newItems.append('circle')
@@ -68,7 +61,8 @@ app.controller('StackCtrl', function($scope){
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
       .ease('bounce')
-      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')')
+      .attr('transform', 'translate(' + vizConfig.xSpawnStart + ',' +
+        vizConfig.ySpawnStart + ')')
       .each('end', function(){
         deadItems.transition()
           .delay(vizConfig.delay)
