@@ -45,7 +45,6 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     // ENTER new SVG groups to the visualization
     var newItems = items.enter().append('g')
       .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')')
-      .attr('fill', '#DDD');
 
     // ENTER new circles to the new SVG groups
     newItems.append('circle')
@@ -60,30 +59,43 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
       .attr('fill', 'white')
       .attr('y', vizConfig.r / 4) // Why divide by 4
 
-
+    var allNodes = d3.selectAll('g');
+    
+    if (allNodes[0].length > 1) {
+      // for each node in turn flash
+      allNodes.each(function(d, index) {
+        // flash white
+        d3.select(this).transition()
+          .ease('linear')
+          .delay(index * 100)
+          .duration((vizConfig.duration / allNodes[0].length) / 2)
+          .attr('fill','white')
+          // back to black
+          .each('end', function() {
+            d3.select(this).transition()
+              .delay((index * 50) )
+              .duration((vizConfig.duration / allNodes[0].length) / 2)
+              .attr('fill', 'black');
+          });
+      });
+    }
     // Animate the new SVG groups
     newItems.transition()
-      .delay(vizConfig.delay)
+      .delay(allNodes.length * 100)
       .duration(vizConfig.duration)
       .ease('linear')
       // Should animate from left to right over each element
       // Pausing at each one * Checking if it can go there *.
-      .each('end', function() {
-        // select all nodes
-        var allNodes = d3.selectAll('g');
-
-      })
       .attr('transform', 'translate(' + xPos + ',' + vizConfig.yStart + ')')
       .each('end', function(d) {
         // callback to fall down into correct spot
         d3.select(this).transition()
-          .delay(vizConfig.delay)
           .duration(vizConfig.duration)
           .ease('bounce')
-          .attr('fill', 'black')
           .attr('transform', 'translate(' + xPos  + ',' + vizConfig.yEnd + ')');
+
       });
-      
+    
 
 
     // EXIT: Animate and remove old SVG groups
