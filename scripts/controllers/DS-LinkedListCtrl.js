@@ -63,10 +63,35 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     newItems.transition()
       .delay(vizConfig.delay)
       .duration(vizConfig.duration)
-      .ease('bounce')
+      .ease('linear')
       // Should animate from left to right over each element
       // Pausing at each one * Checking if it can go there *.
-      .attr('transform', 'translate(' + xPos  + ',' + vizConfig.yStart + ')')
+      .each('end', function() {
+        // select all nodes
+        var allNodes = d3.selectAll('g');
+
+        var makeNodeBlink = function (currentNode, index) {
+          d3.select(currentNode).transition()
+            // blink white
+            .duration(100)
+            .delay( 75 * index) // interval goes up by index for cascading effect
+            .attr('fill', 'white')
+            .each('end', function() {
+              // back to black
+              d3.select(currentNode).transition()
+                .duration(100)
+                .attr('fill', 'black');
+            });
+        };
+        
+        // make each one blink in turn
+        allNodes.each(function(d, index) {
+          makeNodeBlink(this, index);
+        });
+        
+      })
+      .attr('transform', 'translate(' + xPos + ',' + vizConfig.yEnd + ')');
+      /*
       .each('end', function(d) {
         // callback to fall down into correct spot
         d3.select(this).transition()
@@ -75,6 +100,8 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
           .ease('bounce')
           .attr('transform', 'translate(' + xPos  + ',' + vizConfig.yEnd + ')');
       });
+      */
+
 
     // EXIT: Animate and remove old SVG groups
     var deadItems = items.exit();
