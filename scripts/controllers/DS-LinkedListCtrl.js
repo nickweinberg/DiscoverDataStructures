@@ -16,15 +16,21 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   $scope.statusMsg = 'testing 123';
 
   $scope.find = function() {
-
+    $scope.statusMsg = 'Searching...';
 
   };
 
   // Function for adding a node
   $scope.add = function(){
-    xPos += 100;
-    linkedList.push($scope.addText);
-    updateViz();
+    console.log($scope.addText);
+    // require value to add
+    if ($scope.addText === undefined) {
+      $scope.statusMsg = 'Value cannot be Null'
+    } else {
+      linkedList.push($scope.addText);
+      xPos += 100;
+      updateViz();
+    }
   };
 
   svgHeight = 400;
@@ -41,6 +47,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     vizConfig.ySpawnStart = 150;
     vizConfig.yEnd        = 150;
     vizConfig.r           = 30;
+    vizConfig.fillWhite   = '#DDD';
     
     // DATA JOIN: bind linkedList data to the visualization
     var items = svgContainer.selectAll('g').data(linkedList);
@@ -59,7 +66,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     newItems.append('text')
       .text(function(d) { return d; })
       .attr('text-anchor', 'middle')
-      .attr('fill', 'white')
+      .attr('fill', vizConfig.fillWhite)
       .attr('y', vizConfig.r / 4)
 
 
@@ -86,7 +93,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
               return vizConfig.r + 5  
             }
           })
-          .attr('fill','white')
+          .attr('fill', vizConfig.fillWhite)
           // back to black
           .each('end', function() {
             d3.select(this).transition()
