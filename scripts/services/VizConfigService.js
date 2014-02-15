@@ -15,7 +15,8 @@ app.service('VizConfigService', function () {
     ySpawnStart  : 50,
     yEnd         : 150,
     delay        : 200,
-    duration     : 600
+    duration     : 600,
+    strokeColor  : '#008cba'
   };
 
   // _cloneConfig performs a SHALLOW copy of any object, but the purpose is to
