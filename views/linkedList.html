@@ -1,5 +1,5 @@
 <article class="content-container row">
-
+  
   <section class="controls columns small-3 large-2">
 
     <input class="data-input" type="text" ng-model="addText" placeholder="Value to add" />
@@ -8,6 +8,7 @@
      <button class="find-btn" ng-click="find()">Find</button>
      <button class="remove-btn" ng-click="remove()">Remove</button>
   </section>
+  <section class="status-msg">{{statusMsg}}</section>
 
   <section class="visualization columns small-8 large-9"></section>
 

@@ -13,6 +13,8 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
       linkedList = [],
       svgHeight;
 
+  $scope.statusMsg = 'testing 123';
+
   $scope.find = function() {
 
 
