@@ -9,15 +9,47 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   */
 
   var vizConfig             = VizConfigService.getConfig(),
-      xPos                  = vizConfig.xPosStart,
+      xPos                  = -30,
       linkedList = [],
       svgHeight;
+  vizConfig.xPosIncrement = 100;
+
+  $scope.statusMsg = '';
+
+  $scope.remove = function() {
+    if ($scope.findText === undefined) {
+      $scope.statusMsg = 'What value do you want to remove?';
+    } else {
+      if(xPos > vizConfig.xPosStart){
+        xPos -= vizConfig.xPosIncrement;
+      }
+      $scope.statusMsg = 'Removing...';
+      removeViz();
+    }
+
+  }
+
+  $scope.find = function() {
+    if ($scope.findText === undefined) {
+      $scope.statusMsg = 'What do you want to search for?';
+    } else {
+      $scope.statusMsg = 'Searching...';
+      findViz();
+    }
+
+  };
 
   // Function for adding a node
   $scope.add = function(){
-    xPos += 100;
-    linkedList.push($scope.inputText);
-    updateViz();
+    // require value to add
+    if ($scope.addText === undefined) {
+      $scope.statusMsg = 'What value do you want to add?';
+    } else {
+      $scope.statusMsg = 'Adding Node...';
+      linkedList.push($scope.addText);
+      xPos += vizConfig.xPosIncrement;
+      updateViz();
+    }
   };
 
   svgHeight = 400;
@@ -34,6 +66,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     vizConfig.ySpawnStart = 150;
     vizConfig.yEnd        = 150;
     vizConfig.r           = 30;
+    vizConfig.fillWhite   = '#DDD';
     
     // DATA JOIN: bind linkedList data to the visualization
     var items = svgContainer.selectAll('g').data(linkedList);
@@ -46,13 +79,13 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     newItems.append('circle')
       .attr('r', vizConfig.r)
       .attr('stroke-width', 3)
-      .attr('stroke', '#008cba');
+      .attr('stroke', vizConfig.strokeColor);
 
     // ENTER new text (provided by user) to the new SVG groups
     newItems.append('text')
       .text(function(d) { return d; })
       .attr('text-anchor', 'middle')
-      .attr('fill', 'white')
+      .attr('fill', vizConfig.fillWhite)
       .attr('y', vizConfig.r / 4)
 
 
@@ -79,7 +112,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
               return vizConfig.r + 5  
             }
           })
-          .attr('fill','white')
+          .attr('fill', vizConfig.fillWhite)
           // back to black
           .each('end', function() {
             d3.select(this).transition()
@@ -114,6 +147,15 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
           .delay(vizConfig.delay)
           .remove();
       });
+
+  };
+
+  var findViz = function() {
+    vizConfig.r           = 30;
+    vizConfig.fillWhite   = '#DDD';
+
+    // select all the circles
+    var allNodes = d3.selectAll('circle');
   };
 
 });
