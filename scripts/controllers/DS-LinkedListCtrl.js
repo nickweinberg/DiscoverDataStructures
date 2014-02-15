@@ -13,20 +13,24 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
       linkedList = [],
       svgHeight;
 
-  $scope.statusMsg = 'testing 123';
+  $scope.statusMsg = '';
 
   $scope.find = function() {
-    $scope.statusMsg = 'Searching...';
+    if ($scope.findText === undefined) {
+      $scope.statusMsg = 'What do you want to search for?';
+    } else {
+      $scope.statusMsg = 'Searching...';
+    }
 
   };
 
   // Function for adding a node
   $scope.add = function(){
-    console.log($scope.addText);
     // require value to add
     if ($scope.addText === undefined) {
-      $scope.statusMsg = 'Value cannot be Null'
+      $scope.statusMsg = 'Add a value fool...'
     } else {
+      $scope.statusMsg = 'Adding Node...';
       linkedList.push($scope.addText);
       xPos += 100;
       updateViz();
@@ -128,6 +132,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
           .delay(vizConfig.delay)
           .remove();
       });
+
   };
 
 });
