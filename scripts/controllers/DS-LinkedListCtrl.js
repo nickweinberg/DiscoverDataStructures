@@ -1,4 +1,4 @@
-angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($scope){
+angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($scope, VizConfigService){
 	
   'use strict';
 
@@ -8,16 +8,14 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   ** Remove (Removes a node with that data.)
   */
 
-  // Just gonna use an array of data instead of an actual LinkedList
-  var linkedList = [],
-      xPos = 5,
+  var vizConfig             = VizConfigService.getConfig(),
+      xPos                  = vizConfig.xPosStart,
+      linkedList = [],
       svgHeight;
 
   // Function for adding a node
-  // ex. while (current.next != null)
-  //       current.next = current
   $scope.add = function(){
-    xPos += 25;
+    xPos += 100;
     linkedList.push($scope.inputText);
     updateViz();
   };
@@ -30,21 +28,19 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     .attr('height', svgHeight);
 
   var updateViz = function() {
-    var vizConfig = {
-      'r'       : 20,
-      'xStart'  : 30,
-      'yStart'  : 100, // Starts right above first element
-      'yEnd'    : 150, 
-      'delay'   : 200,
-      'duration': 600
-    };
 
+    // Override a few of the default values
+    vizConfig.xSpawnStart = -50;
+    vizConfig.ySpawnStart = 150;
+    vizConfig.yEnd        = 150;
+    vizConfig.r           = 30;
+    
     // DATA JOIN: bind linkedList data to the visualization
     var items = svgContainer.selectAll('g').data(linkedList);
 
     // ENTER new SVG groups to the visualization
     var newItems = items.enter().append('g')
-      .attr('transform', 'translate(' + vizConfig.xStart + ',' + vizConfig.yStart + ')')
+      .attr('transform', 'translate(' + vizConfig.xSpawnStart + ',' + vizConfig.ySpawnStart + ')')
 
     // ENTER new circles to the new SVG groups
     newItems.append('circle')
@@ -57,46 +53,54 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
       .text(function(d) { return d; })
       .attr('text-anchor', 'middle')
       .attr('fill', 'white')
-      .attr('y', vizConfig.r / 4) // Why divide by 4
+      .attr('y', vizConfig.r / 4)
 
-    var allNodes = d3.selectAll('g');
+
+    // select all the circles
+    var allNodes = d3.selectAll('circle');
     
-    if (allNodes[0].length > 1) {
+    // Pop off the last one so we don't animate it.
+    allNodes[0].pop();
+    
+    // if there is more than one node
+    if (allNodes[0].length > 0) {
       // for each node in turn flash
       allNodes.each(function(d, index) {
+        var currentNode = index;
         // flash white
         d3.select(this).transition()
-          .ease('linear')
           .delay(index * 100)
           .duration((vizConfig.duration / allNodes[0].length) / 2)
+          .attr('r', function() {
+            // small radius bump and BIG if it's last node in list
+            if (currentNode >= allNodes[0].length - 1) {
+              return vizConfig.r * 2; 
+            } else {
+              return vizConfig.r + 5  
+            }
+          })
           .attr('fill','white')
           // back to black
           .each('end', function() {
             d3.select(this).transition()
               .delay((index * 50) )
               .duration((vizConfig.duration / allNodes[0].length) / 2)
-              .attr('fill', 'black');
+              .attr('fill', 'black')
+              .attr('r', vizConfig.r);
           });
       });
     }
+
     // Animate the new SVG groups
     newItems.transition()
       .delay(allNodes.length * 100)
       .duration(vizConfig.duration)
       .ease('linear')
-      // Should animate from left to right over each element
-      // Pausing at each one * Checking if it can go there *.
-      .attr('transform', 'translate(' + xPos + ',' + vizConfig.yStart + ')')
       .each('end', function(d) {
-        // callback to fall down into correct spot
         d3.select(this).transition()
-          .duration(vizConfig.duration)
-          .ease('bounce')
-          .attr('transform', 'translate(' + xPos  + ',' + vizConfig.yEnd + ')');
-
+        .attr('transform', 'translate(' + xPos + ',' + vizConfig.ySpawnStart + ')')
       });
     
-
 
     // EXIT: Animate and remove old SVG groups
     var deadItems = items.exit();
