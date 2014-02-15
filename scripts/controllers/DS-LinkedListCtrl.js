@@ -12,14 +12,29 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
       xPos                  = -30,
       linkedList = [],
       svgHeight;
+  vizConfig.xPosIncrement = 100;
 
   $scope.statusMsg = '';
+
+  $scope.remove = function() {
+    if ($scope.findText === undefined) {
+      $scope.statusMsg = 'What value do you want to remove?';
+    } else {
+      if(xPos > vizConfig.xPosStart){
+        xPos -= vizConfig.xPosIncrement;
+      }
+      $scope.statusMsg = 'Removing...';
+      removeViz();
+    }
+
+  }
 
   $scope.find = function() {
     if ($scope.findText === undefined) {
       $scope.statusMsg = 'What do you want to search for?';
     } else {
       $scope.statusMsg = 'Searching...';
+      findViz();
     }
 
   };
@@ -28,11 +43,11 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   $scope.add = function(){
     // require value to add
     if ($scope.addText === undefined) {
-      $scope.statusMsg = 'Add a value fool...'
+      $scope.statusMsg = 'What value do you want to add?';
     } else {
       $scope.statusMsg = 'Adding Node...';
       linkedList.push($scope.addText);
-      xPos += 100;
+      xPos += vizConfig.xPosIncrement;
       updateViz();
     }
   };
@@ -133,6 +148,14 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
           .remove();
       });
 
+  };
+
+  var findViz = function() {
+    vizConfig.r           = 30;
+    vizConfig.fillWhite   = '#DDD';
+
+    // select all the circles
+    var allNodes = d3.selectAll('circle');
   };
 
 });
