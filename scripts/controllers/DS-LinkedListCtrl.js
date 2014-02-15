@@ -9,14 +9,19 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   */
 
   var vizConfig             = VizConfigService.getConfig(),
-      xPos                  = vizConfig.xPosStart,
+      xPos                  = -30,
       linkedList = [],
       svgHeight;
+
+  $scope.find = function() {
+
+
+  };
 
   // Function for adding a node
   $scope.add = function(){
     xPos += 100;
-    linkedList.push($scope.inputText);
+    linkedList.push($scope.addText);
     updateViz();
   };
 
@@ -46,7 +51,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
     newItems.append('circle')
       .attr('r', vizConfig.r)
       .attr('stroke-width', 3)
-      .attr('stroke', '#008cba');
+      .attr('stroke', vizConfig.strokeColor);
 
     // ENTER new text (provided by user) to the new SVG groups
     newItems.append('text')
