@@ -151,11 +151,71 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
   };
 
   var findViz = function() {
-    vizConfig.r           = 30;
-    vizConfig.fillWhite   = '#DDD';
-
     // select all the circles
     var allNodes = d3.selectAll('circle');
+
+    // light up each circle until it finds node with
+    // value equal to $scope.findText then
+    // stops and changes $scope.statusMsg to true
+    // If it's not found
+
+    // if there is more than one node
+    if (allNodes[0].length > 0) {
+      var stillSearching = true; // boolean 
+
+      // for each node in turn flash
+      allNodes.each(function(d, index) {
+        if (!stillSearching) {
+          // set $scope.statusMsg
+          $scope.statusMsg = "true";
+          return stillSearching;
+        } else if (this.__data__ === $scope.findText) { 
+          stillSearching = false; // we found it!
+        };
+        
+        var currentNode = index;
+        // flash white
+        d3.select(this).transition()
+          .delay(index * 100)
+          .duration((vizConfig.duration / allNodes[0].length) / 2)
+          .attr('r', function() {
+            // small radius bump and BIG if it's the found item
+            if (!stillSearching) {
+              return vizConfig.r * 2;
+            } else {
+              return vizConfig.r + 5;
+            }
+          })
+          .attr('fill', function() {
+            if (!stillSearching) {
+              return 'green';
+            } else {
+              return vizConfig.strokeColor;
+            }
+          })
+          // back to black
+          .each('end', function() {
+            d3.select(this).transition()
+              .delay(function() {
+                if (!stillSearching) {
+                  return 2000; // if it's found longer delay
+                } else {
+                  return index * 100;
+                }
+            })
+              .duration((vizConfig.duration / allNodes[0].length) / 2)
+              .attr('fill', 'black')
+              .attr('r', vizConfig.r);
+          });
+        
+        // if gone through all nodes and not found update statusMsg
+        if(index >= allNodes[0].length - 1 && stillSearching) {
+          $scope.statusMsg = "false";
+          
+        }
+      });
+    }
+
   };
 
 });
