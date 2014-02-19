@@ -116,7 +116,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
           // back to black
           .each('end', function() {
             d3.select(this).transition()
-              .delay((index * 50) )
+              .delay((index * 100) )
               .duration((vizConfig.duration / allNodes[0].length) / 2)
               .attr('fill', 'black')
               .attr('r', vizConfig.r);
