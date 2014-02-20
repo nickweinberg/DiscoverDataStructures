@@ -209,7 +209,7 @@ angular.module('DiscoverDataStructsApp').controller('LinkedListCtrl', function($
           });
         
         // if gone through all nodes and not found update statusMsg
-        if(index >= allNodes[0].length - 1 && stillSearching) {
+        if(index >= allNodes[0].length && stillSearching) {
           $scope.statusMsg = "false";
           
         }
